@@ -11,13 +11,13 @@ search: true
 # Build settings
 markdown: kramdown
 remote_theme: mmistakes/minimal-mistakes
-permalink: /:title/  # Using simple title-based URLs for pages like /resume/ /projects/
+permalink: /:title/
 paginate: 5
 paginate_path: /page:num/
 timezone: Africa/Nairobi
 
 include:
-  - _pages  # Ensure this includes your pages folder where markdown files are located.
+  - _pages
 
 # Plugins
 plugins:
@@ -30,7 +30,7 @@ plugins:
 
 author:
   name: "Stephanie Makori"
-  avatar: "/assets/images/bio-photo.jpg"  # Replace with your avatar image
+  avatar: "/assets/images/bio-photo.jpg"
   bio: "Motivated Computer Science student with a strong foundation in cloud computing, cybersecurity, and software development."
   links:
     - label: "LinkedIn"
@@ -70,10 +70,4 @@ defaults:
       layout: single
       author_profile: true
 
-# Removed category and tag archives settings, as they're not needed
-# category_archive:
-#   type: liquid
-#   path: /categories/
-# tag_archive:
-#   type: liquid
-#   path: /tags/
+# Removed category and tag archives settings
