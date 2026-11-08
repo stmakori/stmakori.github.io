@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stephanie Makori</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Stephanie Makori: cloud engineer on the path to DevOps, based in Nairobi. AWS, Terraform, CI/CD and web products built for Kenya.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one left-aligned column on a quiet ground; the hero pairs a plain statement with a
+   terraform-plan readout, and projects read as infrastructure resources in a two-column grid. */
+:root {
+  --bg: #f4f7f6;
+  --surface: #ffffff;
+  --ink: #0f1f1a;
+  --muted: #56665f;
+  --line: #d9e2de;
+  --accent: #0d7356;
+  --accent-soft: #e2f1eb;
+  --warm: #b0501c;
+  --term-bg: #0f1f1a;
+  --term-ink: #d6e6e0;
+  --term-dim: #7f9890;
+  --term-add: #6fd3ab;
+  --term-warm: #f2a46f;
+  --font-display: "Familjen Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Public Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --step--1: 0.8125rem;
+  --step-0: 1rem;
+  --step-1: 1.1875rem;
+  --step-2: 1.5rem;
+  --step-3: clamp(1.875rem, 1.3rem + 2.4vw, 2.75rem);
+  --radius: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c1512; --surface: #121e1a; --ink: #e5eeea; --muted: #93a49e; --line: #22332d;
+    --accent: #52c9a0; --accent-soft: #163128; --warm: #f0965a;
+    --term-bg: #08100d; --term-ink: #d6e6e0; --term-dim: #6f8a81; --term-add: #6fd3ab; --term-warm: #f2a46f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c1512; --surface: #121e1a; --ink: #e5eeea; --muted: #93a49e; --line: #22332d;
+  --accent: #52c9a0; --accent-soft: #163128; --warm: #f0965a;
+  --term-bg: #08100d; --term-ink: #d6e6e0; --term-dim: #6f8a81; --term-add: #6fd3ab; --term-warm: #f2a46f;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: var(--step-0); line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+@media (min-width: 720px) { .wrap { padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)); } }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+p { margin: 0; }
+.mono { font-family: var(--font-mono); }
+.label {
+  font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted);
+  letter-spacing: 0.04em; text-transform: lowercase;
+}
+
+/* Header */
+.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 20px; }
+.mark { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); font-family: var(--font-display); font-weight: 700; }
+.mark span.mono-badge {
+  display: grid; place-items: center; width: 34px; height: 34px; border-radius: 8px;
+  background: var(--ink); color: var(--bg); font-family: var(--font-mono); font-size: 0.8rem; font-weight: 500;
+}
+.nav { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; justify-content: flex-end; }
+.nav a { color: var(--muted); text-decoration: none; font-size: 0.9375rem; padding: 6px 10px; border-radius: 6px; }
+.nav a:hover { color: var(--ink); background: var(--accent-soft); }
+.theme-btn {
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+  font: 500 var(--step--1)/1 var(--font-mono); padding: 7px 10px; border-radius: 6px; cursor: pointer;
+}
+@media (max-width: 640px) { .nav a.hide-sm { display: none; } }
+
+/* Hero */
+.hero { display: grid; gap: 40px; padding-block: 40px 64px; align-items: center; }
+@media (min-width: 900px) { .hero { grid-template-columns: 1.05fr 1fr; padding-block: 56px 88px; } }
+.hero > * { min-width: 0; }
+.eyebrow { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.chip {
+  font-family: var(--font-mono); font-size: var(--step--1); padding: 3px 9px; border-radius: 999px;
+  border: 1px solid var(--line); color: var(--muted); background: var(--surface);
+}
+.chip.on { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); background: var(--accent-soft); }
+.hero h1 { font-size: var(--step-3); font-weight: 700; max-width: 16ch; }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.lede { margin-top: 20px; font-size: var(--step-1); color: var(--muted); max-width: 46ch; line-height: 1.55; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 8px;
+  font-weight: 600; font-size: 0.9375rem; text-decoration: none; border: 1px solid transparent;
+}
+.btn.primary { background: var(--ink); color: var(--bg); }
+.btn.primary:hover { background: var(--accent); color: var(--bg); }
+.btn.ghost { border-color: var(--line); color: var(--ink); background: var(--surface); }
+.btn.ghost:hover { border-color: var(--accent); }
+
+/* Terminal */
+.term {
+  background: var(--term-bg); color: var(--term-ink); border-radius: var(--radius);
+  font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.7;
+  box-shadow: 0 18px 40px -24px rgba(8, 20, 16, 0.55);
+  overflow: hidden;
+}
+.term-bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.07); color: var(--term-dim); }
+.term-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--term-dim); opacity: 0.45; display: inline-block; }
+.term-bar span { margin-left: 8px; }
+.term pre { margin: 0; padding: 16px 18px 18px; overflow-x: auto; font: inherit; }
+.t-dim { color: var(--term-dim); }
+.t-add { color: var(--term-add); }
+.t-warm { color: var(--term-warm); }
+
+/* Sections */
+section.block { padding-block: 56px; border-top: 1px solid var(--line); }
+.sec-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; margin-bottom: 32px; }
+.sec-head h2 { font-size: var(--step-2); font-weight: 700; }
+.sec-head p { color: var(--muted); max-width: 52ch; }
+
+/* Projects */
+.projects { display: grid; gap: 20px; }
+@media (min-width: 760px) { .projects { grid-template-columns: 1fr 1fr; } }
+.proj {
+  display: flex; flex-direction: column; gap: 14px; min-width: 0;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px;
+}
+.proj .addr { font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted); overflow-wrap: anywhere; }
+.proj .addr b { color: var(--accent); font-weight: 500; }
+.proj h3 { font-size: var(--step-1); font-weight: 700; }
+.proj p { color: var(--muted); }
+.proj ul { margin: 0; padding-left: 18px; color: var(--ink); display: grid; gap: 4px; font-size: 0.9375rem; }
+.stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 4px; }
+.stack span { font-family: var(--font-mono); font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); }
+.links { display: flex; gap: 16px; flex-wrap: wrap; font-weight: 600; font-size: 0.9375rem; }
+.also { margin-top: 20px; color: var(--muted); }
+
+/* Path (a real sequence) */
+.path { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; max-width: 760px; }
+.path li { display: grid; grid-template-columns: 88px 1fr; gap: 20px; padding-block: 18px; border-bottom: 1px dashed var(--line); }
+.path li:last-child { border-bottom: 0; }
+.path .when { font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted); padding-top: 3px; }
+.path h3 { font-size: var(--step-0); font-weight: 700; font-family: var(--font-body); }
+.path p { color: var(--muted); margin-top: 4px; }
+.path li.next .when { color: var(--warm); }
+@media (max-width: 520px) { .path li { grid-template-columns: 1fr; gap: 4px; } }
+
+/* Two-up: certs + skills */
+.two { display: grid; gap: 40px; }
+@media (min-width: 860px) { .two { grid-template-columns: 1fr 1.2fr; gap: 56px; } }
+.two > * { min-width: 0; }
+.certs { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.certs li { display: flex; justify-content: space-between; gap: 16px; padding-block: 12px; border-bottom: 1px solid var(--line); }
+.certs li span:last-child { font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted); white-space: nowrap; }
+.skills { display: grid; gap: 20px; }
+.skills h3 { font-size: var(--step--1); font-family: var(--font-mono); font-weight: 500; color: var(--muted); margin-bottom: 8px; text-transform: lowercase; letter-spacing: 0.04em; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tags span { font-size: 0.875rem; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); }
+.tags span.learning { border-style: dashed; color: var(--muted); }
+.sub-h { font-size: var(--step-1); font-weight: 700; margin-bottom: 12px; }
+
+/* About */
+.about { display: grid; gap: 32px; }
+@media (min-width: 860px) { .about { grid-template-columns: 1.3fr 1fr; gap: 56px; } }
+.about > * { min-width: 0; }
+.about p + p { margin-top: 14px; }
+.about .body p { max-width: 62ch; }
+.facts { display: grid; gap: 14px; margin: 0; }
+.facts div { display: grid; gap: 2px; }
+.facts dt { font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted); }
+.facts dd { margin: 0; }
+
+/* Contact */
+.contact { background: var(--ink); color: var(--bg); border-radius: 14px; padding: clamp(28px, 5vw, 48px); display: grid; gap: 24px; }
+@media (min-width: 860px) { .contact { grid-template-columns: 1.2fr 1fr; align-items: center; } }
+.contact > * { min-width: 0; }
+.contact h2 { font-size: var(--step-3); }
+.contact p { opacity: 0.75; margin-top: 10px; max-width: 44ch; }
+.contact .rows { display: grid; gap: 10px; }
+.contact .row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 8px; border: 1px solid color-mix(in srgb, var(--bg) 20%, transparent); }
+.contact .row a, .contact .row span.val { color: var(--bg); font-weight: 600; text-decoration: none; overflow-wrap: anywhere; }
+.contact .row a:hover { text-decoration: underline; }
+.contact .row .k { font-family: var(--font-mono); font-size: var(--step--1); opacity: 0.65; }
+.copy { border: 1px solid color-mix(in srgb, var(--bg) 30%, transparent); background: transparent; color: var(--bg); font: 500 0.75rem/1 var(--font-mono); padding: 6px 9px; border-radius: 5px; cursor: pointer; }
+footer { padding-block: 32px 40px; color: var(--muted); font-size: var(--step--1); font-family: var(--font-mono); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a class="mark" href="#top" aria-label="Stephanie Makori, home"><span class="mono-badge">SM</span>Stephanie Makori</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#projects">Projects</a>
+      <a href="#path" class="hide-sm">Cloud path</a>
+      <a href="#skills" class="hide-sm">Skills</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-btn" id="theme-toggle" type="button" aria-label="Switch colour theme">theme</button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">
+          <span class="chip on">cloud engineer</span>
+          <span class="chip">devops, in progress</span>
+          <span class="chip">nairobi, ke</span>
+        </div>
+        <h1>I build on AWS and <em>codify</em> the infrastructure behind it.</h1>
+        <p class="lede">I ship web products for Kenya, in safety, savings groups and learning, and automate how they run with Terraform and CI/CD.</p>
+        <div class="cta">
+          <a class="btn primary" href="#projects">See my projects</a>
+          <a class="btn ghost" href="https://github.com/stmakori">GitHub</a>
+          <a class="btn ghost" href="https://linkedin.com/in/stephaniemakori">LinkedIn</a>
+        </div>
+      </div>
+
+      <div class="term" role="img" aria-label="Terminal showing a Terraform plan that summarises Stephanie's portfolio: four projects, five certifications, nothing to destroy.">
+        <div class="term-bar"><i></i><i></i><i></i><span>~/stmakori</span></div>
+<pre><span class="t-dim">$</span> terraform plan
+
+<span class="t-dim"># module.portfolio will be created</span>
+<span class="t-add">+</span> resource "engineer" "stephanie" {
+<span class="t-add">+</span>   location = "Nairobi, KE"
+<span class="t-add">+</span>   cloud    = "aws"
+<span class="t-add">+</span>   iac      = "terraform"
+<span class="t-add">+</span>   ci_cd    = "github-actions"
+<span class="t-add">+</span>   learning = ["kubernetes", "observability"]
+<span class="t-add">+</span>   builds   = ["voices", "cornote", "chamahub"]
+  }
+
+<span class="t-warm">Plan:</span> 4 projects, 5 certifications, 0 to destroy.</pre>
+      </div>
+    </section>
+
+    <section class="block" id="projects" aria-labelledby="projects-h">
+      <div class="sec-head">
+        <h2 id="projects-h">Featured projects</h2>
+        <p>Real products for real problems in Kenya, and the infrastructure work that runs them.</p>
+      </div>
+
+      <div class="projects">
+        <article class="proj">
+          <div class="addr">module.projects<b>["voices"]</b></div>
+          <h3>Voices Against Violence</h3>
+          <p>A gender-based violence reporting and support platform for Kenya. Survivors and witnesses can report safely and find verified help nearby.</p>
+          <ul>
+            <li>Anonymous reporting with a visible case timeline</li>
+            <li>Verified map of police posts, safe houses, hospitals and legal aid</li>
+            <li>AI support companion grounded in the verified resource database</li>
+            <li>Cognito sign-in with SMS MFA, audit logging, admin SLA metrics</li>
+          </ul>
+          <div class="stack"><span>Django</span><span>Elastic Beanstalk</span><span>Cognito</span><span>PostgreSQL</span><span>Leaflet</span></div>
+          <div class="links"><a href="https://www.voicesagainstviolence.co.ke">Live site</a><a href="https://github.com/stmakori/voices">Code</a></div>
+        </article>
+
+        <article class="proj">
+          <div class="addr">module.projects<b>["cornote"]</b></div>
+          <h3>Cornote</h3>
+          <p>Turns any PDF into Cornell notes, practice questions and a study plan that adapts every time a student practises.</p>
+          <ul>
+            <li>Four autonomous Claude agents: feedback, study plan, verifier and coach</li>
+            <li>Own tool-calling loop on the Anthropic SDK, no agent framework</li>
+            <li>Seven question types, spaced repetition and a timed exam mode</li>
+            <li>237 tests passing; deployed on AWS Lightsail</li>
+          </ul>
+          <div class="stack"><span>Django</span><span>Anthropic SDK</span><span>AWS Lightsail</span><span>Python</span></div>
+          <div class="links"><a href="https://bit.ly/4AF7FcM">Live demo</a><a href="https://github.com/stmakori/Cornote_Qwen">Code</a></div>
+        </article>
+
+        <article class="proj">
+          <div class="addr">module.projects<b>["terraform_challenge"]</b></div>
+          <h3>Terraform Challenge</h3>
+          <p>Day-by-day Terraform on AWS, from a single EC2 web server to a multi-region, highly available stack.</p>
+          <ul>
+            <li>Reusable modules, S3 remote state with DynamoDB locking, workspaces</li>
+            <li>Zero-downtime deploys, Secrets Manager, multi-region provider aliases</li>
+            <li>Terratest in Go; GitHub Actions with immutable plan artifacts</li>
+            <li>Terraform Cloud, Sentinel policies and cost estimation</li>
+          </ul>
+          <div class="stack"><span>Terraform</span><span>AWS</span><span>GitHub Actions</span><span>Terratest</span><span>Sentinel</span></div>
+          <div class="links"><a href="https://github.com/stmakori/Terraform_Challenge">Code and day-by-day index</a></div>
+        </article>
+
+        <article class="proj">
+          <div class="addr">module.projects<b>["chamahub"]</b></div>
+          <h3>ChamaHub</h3>
+          <p>Management for chamas, Kenya's savings groups: contributions, loans, repayments and withdrawals in one shared ledger.</p>
+          <ul>
+            <li>M-Pesa payments through Payhero, confirmed by webhook</li>
+            <li>Tamper-evident audit trail recorded on the Stellar blockchain</li>
+            <li>Member and treasurer dashboards with a loan approval workflow</li>
+            <li>Encrypted key storage and an audit log of sensitive actions</li>
+          </ul>
+          <div class="stack"><span>Django</span><span>Payhero</span><span>Stellar</span><span>Python</span></div>
+          <div class="links"><a href="https://github.com/stmakori/Chamahub">Code</a></div>
+        </article>
+      </div>
+
+      <p class="also">Also: <a href="https://github.com/stmakori/Weekend-Agent-Challenge-Cost-Sentinel">Cost Sentinel</a>, a scheduled agent that checks AWS spend for anomalies and emails a plain-English summary written with Amazon Bedrock.</p>
+    </section>
+
+    <section class="block" id="path" aria-labelledby="path-h">
+      <div class="sec-head">
+        <h2 id="path-h">Cloud to DevOps, in order</h2>
+        <p>How I've been building up from cloud fundamentals toward DevOps, in public.</p>
+      </div>
+      <ol class="path">
+        <li>
+          <span class="when">2024</span>
+          <div><h3>AWS re/Start</h3><p>12 weeks on cloud fundamentals, Linux, networking, Python and DevOps basics. Led to the AWS Cloud Practitioner certification.</p></div>
+        </li>
+        <li>
+          <span class="when">bootcamp</span>
+          <div><h3>AWS Cloud Project Bootcamp</h3><p>Built and deployed the Cruddur app on AWS with containers. <a href="https://github.com/stmakori/aws-bootcamp">Code</a></p></div>
+        </li>
+        <li>
+          <span class="when">100 days</span>
+          <div><h3>100 Days of AWS (KodeKloud)</h3><p>A hands-on AWS task every day across EC2, VPC, IAM, S3 and more. <a href="https://github.com/stmakori/KodeKloud_100Day_AWS">Log</a></p></div>
+        </li>
+        <li>
+          <span class="when">2026</span>
+          <div><h3>Terraform Challenge</h3><p>Infrastructure as code with modules, remote state, testing, CI pipelines and policy as code. <a href="https://github.com/stmakori/Terraform_Challenge">Code</a></p></div>
+        </li>
+        <li>
+          <span class="when">2026</span>
+          <div><h3>Shipping to production</h3><p>Deployed Voices Against Violence on Elastic Beanstalk and Cornote on Lightsail, and built Cost Sentinel to watch AWS spend.</p></div>
+        </li>
+        <li class="next">
+          <span class="when">next</span>
+          <div><h3>Kubernetes, observability, pipelines</h3><p>Running workloads on EKS, metrics and alerting, and end-to-end delivery pipelines.</p></div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="block" id="skills" aria-labelledby="skills-h">
+      <div class="two">
+        <div>
+          <h2 class="sub-h" id="certs-h">Certifications</h2>
+          <ul class="certs" aria-labelledby="certs-h">
+            <li><span>AWS Certified Cloud Practitioner</span><span>AWS</span></li>
+            <li><span>Certified in Cybersecurity (CC)</span><span>ISC2</span></li>
+            <li><span>Azure Fundamentals (AZ-900)</span><span>Microsoft</span></li>
+            <li><span>Azure AI Fundamentals (AI-900)</span><span>Microsoft</span></li>
+            <li><span>GitHub Foundations</span><span>GitHub</span></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="sub-h" id="skills-h">Tools I use</h2>
+          <div class="skills">
+            <div><h3>cloud</h3><div class="tags"><span>EC2</span><span>S3</span><span>VPC</span><span>IAM</span><span>RDS</span><span>Lambda</span><span>Elastic Beanstalk</span><span>Lightsail</span><span>Cognito</span><span>Bedrock</span><span>CloudWatch</span><span>Secrets Manager</span></div></div>
+            <div><h3>infrastructure &amp; delivery</h3><div class="tags"><span>Terraform</span><span>GitHub Actions</span><span>Docker</span><span>Terratest</span><span>Sentinel</span><span>Linux</span><span class="learning">Kubernetes (learning)</span></div></div>
+            <div><h3>code</h3><div class="tags"><span>Python</span><span>Django</span><span>JavaScript</span><span>SQL</span><span>Java</span><span class="learning">Go (learning)</span></div></div>
+            <div><h3>security</h3><div class="tags"><span>IAM policies</span><span>KMS</span><span>MFA</span><span>Wireshark</span><span>tcpdump</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="about" aria-labelledby="about-h">
+      <div class="about">
+        <div class="body">
+          <h2 class="sub-h" id="about-h">About</h2>
+          <p>I'm a computer science graduate from Egerton University, based in Nairobi. I like building things people in Kenya actually need, then making them reliable, secure and cheap to run.</p>
+          <p>Right now I'm deepening my DevOps practice: infrastructure as code, automated testing of infrastructure, and pipelines that make shipping boring in the best way.</p>
+        </div>
+        <dl class="facts">
+          <div><dt>education</dt><dd>BSc Computer Science, Egerton University</dd></div>
+          <div><dt>training</dt><dd>AWS re/Start, Amazon Web Services (2024)</dd></div>
+          <div><dt>community</dt><dd>EUCOSSA (event coordinator) · GDSC Egerton · Volunteer mentor, Kasarani Youth Empowerment Centre</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="block" id="contact" aria-labelledby="contact-h">
+      <div class="contact">
+        <div>
+          <h2 id="contact-h">Let's talk.</h2>
+          <p>Open to cloud and DevOps roles, collaborations and projects. Email is the fastest way to reach me.</p>
+        </div>
+        <div class="rows">
+          <div class="row"><div><div class="k">email</div><span class="val" id="email-text">makoristephanie@gmail.com</span></div><button class="copy" id="copy-email" type="button">copy</button></div>
+          <div class="row"><div><div class="k">linkedin</div><a href="https://linkedin.com/in/stephaniemakori">in/stephaniemakori</a></div></div>
+          <div class="row"><div><div class="k">github</div><a href="https://github.com/stmakori">stmakori</a></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 Stephanie Makori</span>
+    <span>Static HTML on GitHub Pages</span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn = document.getElementById('theme-toggle');
+  function current() {
+    var t = root.getAttribute('data-theme');
+    if (t) return t;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function label() { btn.textContent = current() === 'dark' ? 'light' : 'dark'; }
+  try { var saved = localStorage.getItem('theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+  label();
+  btn.addEventListener('click', function () {
+    var next = current() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+    label();
+  });
+
+  var copyBtn = document.getElementById('copy-email');
+  var emailEl = document.getElementById('email-text');
+  copyBtn.addEventListener('click', function () {
+    var text = emailEl.textContent;
+    function selectIt() {
+      var r = document.createRange(); r.selectNodeContents(emailEl);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      copyBtn.textContent = 'selected';
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { copyBtn.textContent = 'copied'; }, selectIt);
+    } else { selectIt(); }
+    setTimeout(function () { copyBtn.textContent = 'copy'; }, 2000);
+  });
+})();
+</script>
+</body>
+</html>
