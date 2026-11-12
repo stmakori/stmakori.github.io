@@ -241,7 +241,7 @@ footer { padding-block: 32px 40px; color: var(--muted); font-size: var(--step--1
         </div>
       </div>
 
-      <div class="term" role="img" aria-label="Terminal showing a Terraform plan that summarises Stephanie's portfolio: four projects, eight certifications, nothing to destroy.">
+      <div class="term" role="img" aria-label="Terminal showing a Terraform plan that summarises Stephanie's portfolio: five projects, eight certifications, nothing to destroy.">
         <div class="term-bar"><i></i><i></i><i></i><span>~/stmakori</span></div>
 <pre><span class="t-dim">$</span> terraform plan
 
@@ -252,10 +252,10 @@ footer { padding-block: 32px 40px; color: var(--muted); font-size: var(--step--1
 <span class="t-add">+</span>   iac      = "terraform"
 <span class="t-add">+</span>   ci_cd    = "github-actions"
 <span class="t-add">+</span>   learning = ["kubernetes", "observability"]
-<span class="t-add">+</span>   builds   = ["voices", "cornote", "chamahub"]
+<span class="t-add">+</span>   builds   = ["voices", "cornote", "chamahub", "feedback_platform"]
   }
 
-<span class="t-warm">Plan:</span> 4 projects, 8 certifications, 0 to destroy.</pre>
+<span class="t-warm">Plan:</span> 5 projects, 8 certifications, 0 to destroy.</pre>
       </div>
     </section>
 
@@ -320,6 +320,20 @@ footer { padding-block: 32px 40px; color: var(--muted); font-size: var(--step--1
           </ul>
           <div class="stack"><span>Django</span><span>Payhero</span><span>Stellar</span><span>Python</span></div>
           <div class="links"><a href="https://github.com/stmakori/Chamahub">Code</a></div>
+        </article>
+
+        <article class="proj">
+          <div class="addr">module.projects<b>["feedback_platform"]</b></div>
+          <h3>Feedback Platform</h3>
+          <p>A multi-tenant client feedback platform. Businesses invite clients by email, and clients send feedback as text, photos or a voice note recorded in the browser.</p>
+          <ul>
+            <li>Tenant isolation through scoped queries, with integration tests that prove it</li>
+            <li>Single-use, expiring invitation links; only a SHA-256 digest is stored</li>
+            <li>In-browser voice notes with a live level meter and waveform playback</li>
+            <li>Sidekiq email delivery; CI runs tests, RuboCop, Brakeman and dependency audits</li>
+          </ul>
+          <div class="stack"><span>Ruby on Rails</span><span>Hotwire</span><span>PostgreSQL</span><span>Sidekiq</span><span>Tailwind</span></div>
+          <div class="links"><a href="https://github.com/stmakori/feedback-platform">Code</a></div>
         </article>
       </div>
 
